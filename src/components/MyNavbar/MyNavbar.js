@@ -26,6 +26,10 @@ class MyNavbar extends Component {
     });
   };
 
+  handleLogout = () => {
+    localStorage.removeItem("user");
+  };
+
   render() {
     let navbarToggler = (
       <Fragment>
@@ -48,7 +52,13 @@ class MyNavbar extends Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={navLink} to="/login" exact className={classes.Link}>
+              <NavLink
+                tag={navLink}
+                to="/login"
+                exact
+                className={classes.Link}
+                onClick={this.handleLogout}
+              >
                 Logout
               </NavLink>
             </NavItem>

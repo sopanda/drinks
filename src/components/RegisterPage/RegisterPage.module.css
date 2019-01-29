@@ -1,0 +1,29 @@
+.RegisterPage {
+  background-color: #001220;
+  width: 100%;
+  height: 100vh;
+}
+
+.RegisterPage_Wrapper {
+  max-width: 450px;
+  width: 100%;
+}
+
+.Buttons {
+  text-align: right;
+}
+
+.Buttons button {
+  margin-left: 10px;
+  border-radius: 0;
+  border-color: #001220;
+}
+
+.Title {
+  margin: 20px 0;
+  text-align: center;
+  color: #eee;
+  text-transform: uppercase;
+  font-weight: 200;
+  letter-spacing: 1px;
+}
