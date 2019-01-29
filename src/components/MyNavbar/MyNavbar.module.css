@@ -1,0 +1,17 @@
+.MyNavbar {
+  background-color: #082336;
+}
+
+.Brand {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-right: 0;
+}
+
+.IconToggle {
+  border: none;
+}
+
+.List {
+  text-align: center;
+}

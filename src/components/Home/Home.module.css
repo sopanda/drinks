@@ -1,0 +1,9 @@
+.Home_Form {
+  display: flex;
+  justify-content: center;
+}
+
+.Dismiss_Border {
+  border-radius: 0;
+  border-color: #082336;
+}
