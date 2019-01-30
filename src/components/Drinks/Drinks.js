@@ -18,13 +18,8 @@ class Drinks extends Component {
       return (
         <Drink
           key={drink.id}
-          img={drink.picture_url}
-          name={drink.name}
-          category={drink.category.name}
-          desc={drink.instructions}
-          ingredients={drink.ingredients}
-          id={drink.id}
-          wishUpdate={this.props.parentUpdate}
+          cocktail={drink}
+          update={this.props.parentUpdate}
         />
       );
     });

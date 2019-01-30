@@ -13,19 +13,22 @@ class TastedPage extends Component {
   }
 
   componentDidMount() {
+    this.getData();
+  }
+
+  getData = () => {
     axios.get(`api/drink/?tasted_list=1`).then(res => {
       const data = res.data.data;
       this.setState({ data });
     });
-  }
-
+  };
   render() {
     const { data } = this.state;
     return (
       <Container>
         <h3 className={classes.Title}>Tasted drinks:</h3>
         {data !== null && data.length !== 0 ? (
-          <Drinks data={data} />
+          <Drinks data={data} parentUpdate={this.getData} />
         ) : (
           <p>You don't taste anything yet</p>
         )}

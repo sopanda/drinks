@@ -13,14 +13,15 @@ import {
 } from "reactstrap";
 import classes from "./Drink.module.css";
 import axios from "../../../axios-url";
+import ScoreModal from "../../ScoreModal/ScoreModal";
 
 class Drink extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      delete: false,
+      deleted: false,
       addedW: false,
-      addedT: false
+      added: false
     };
   }
 
@@ -29,59 +30,70 @@ class Drink extends Component {
       window.location.pathname === "/wish" ||
       window.location.pathname === "/tasted"
     ) {
-      this.setState({ delete: true });
+      this.setState({ deleted: true });
     }
   };
 
   handleDelete = () => {
-    const { id } = this.props;
+    const { id } = this.props.cocktail;
     if (window.location.pathname === "/wish") {
       axios.delete(`/api/drink/${id}/wish_list/`).then(res => {
         console.log("deleted", res);
-        this.props.wishUpdate();
+        this.props.update();
       });
     }
     if (window.location.pathname === "/tasted") {
       axios.delete(`/api/drink/${id}/tasted_list/`).then(res => {
         console.log("deleted", res);
+        this.props.update();
       });
     }
   };
 
   handleWish = () => {
-    const { id } = this.props;
+    const { id } = this.props.cocktail;
     axios.post(`/api/drink/${id}/wish_list/`).then(res => {
-      this.setState({ addedW: true });
-    });
-  };
-
-  handleTasted = () => {
-    const { id } = this.props;
-    axios.post(`/api/drink/${id}/tasted_list/`).then(res => {
-      this.setState({ addedT: true });
+      this.setState({ added: true });
     });
   };
 
   render() {
+    const {
+      id,
+      name,
+      category,
+      avg_look_score,
+      avg_taste_score,
+      avg_score,
+      ingredients,
+      instructions,
+      picture_url
+    } = this.props.cocktail;
+
+    const { deleted, added } = this.state;
+
     return (
       <Col md="4">
         <Card className={classes.Card}>
           <CardImg
             top
             width="100%"
-            src={this.props.img}
+            src={picture_url}
             alt="Drink"
             className="img-thumbnail"
           />
           <CardBody>
-            <CardTitle>{this.props.name}</CardTitle>
+            <CardTitle>{name}</CardTitle>
             <CardSubtitle>
-              <strong>Category:</strong> {this.props.category}
+              <strong>Category:</strong> {category.name} <br />
+              <strong>Look score:</strong> {avg_look_score} <br />
+              <strong>Taste score:</strong> {avg_taste_score} <br />
+              <strong>Score:</strong> {avg_score}
             </CardSubtitle>
-            <CardText tag="div">
+            <CardText tag="div" className={classes.CardText}>
               <strong>Ingredients:</strong>{" "}
               <ListGroup>
-                {this.props.ingredients.map(item => {
+                {ingredients.map(item => {
                   return (
                     <ListGroupItem
                       key={item.ingredient.id}
@@ -97,21 +109,19 @@ class Drink extends Component {
                   );
                 })}
               </ListGroup>
-              <strong>Instructions:</strong> <br /> {this.props.desc}
+              <strong>Instructions:</strong> <br /> {instructions}
             </CardText>
-            {this.state.delete ? (
+            {deleted ? (
               <Button className={classes.Like} onClick={this.handleDelete}>
                 Delete from list
               </Button>
             ) : (
               <Fragment>
-                <Button className={classes.Like} onClick={this.handleTasted}>
-                  I've tasted
-                </Button>
+                <ScoreModal drinkId={id} />
                 <Button
                   className={classes.Like}
                   onClick={this.handleWish}
-                  disabled={this.state.addedW ? true : false}
+                  disabled={added ? true : false}
                 >
                   Wish list
                 </Button>
