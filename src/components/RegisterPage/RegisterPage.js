@@ -9,7 +9,7 @@ import {
   Col
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axios-url";
 import classes from "./RegisterPage.module.css";
 import { withRouter } from "react-router-dom";
 
@@ -35,7 +35,7 @@ class RegisterPage extends Component {
       password: password
     };
     if (username && password) {
-      axios.post(`https://9155b4f4.ngrok.io/api/user/`, user).then(res => {
+      axios.post(`/api/user/`, user).then(res => {
         console.log(res);
         this.props.history.push("/login");
       });

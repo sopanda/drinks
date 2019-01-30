@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import {
   Card,
   CardImg,
@@ -7,7 +7,9 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
-  Col
+  Col,
+  ListGroupItem,
+  ListGroup
 } from "reactstrap";
 import classes from "./Drink.module.css";
 
@@ -25,19 +27,28 @@ const Drink = props => {
         <CardBody>
           <CardTitle>{props.name}</CardTitle>
           <CardSubtitle>
-            Alcohol %: {props.alcohol} <br /> Category: {props.category}
+            <strong>Category:</strong> {props.category}
           </CardSubtitle>
-          <CardText>
-            Ingredients:{" "}
-            {props.ingredients.map(item => {
-              for (let key in item) {
+          <CardText tag="div">
+            <strong>Ingredients:</strong>{" "}
+            <ListGroup>
+              {props.ingredients.map(item => {
                 return (
-                  <strong key={item[key].id}>{item[key].name + " "}</strong>
+                  <ListGroupItem
+                    key={item.ingredient.id}
+                    className={classes.Ingredient}
+                  >
+                    {item.verbose_measure}
+                    {item.measure_in_ml
+                      ? ` (${item.measure_in_ml} in ml) `
+                      : null}{" "}
+                    {item.ingredient.name} with{" "}
+                    {item.ingredient.alcohol_percentage} % of alcohol <br />
+                  </ListGroupItem>
                 );
-              }
-            })}
-            <br />
-            Instructions: <br /> {props.desc}
+              })}
+            </ListGroup>
+            <strong>Instructions:</strong> <br /> {props.desc}
           </CardText>
           <Button className={classes.Like}>I've tasted</Button>
           <Button className={classes.Like}>Wish list</Button>

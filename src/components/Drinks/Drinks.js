@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col } from "reactstrap";
+import { Row } from "reactstrap";
 import Drink from "./Drink/Drink";
 
 class Drinks extends Component {
@@ -22,7 +22,6 @@ class Drinks extends Component {
           name={drink.name}
           category={drink.category.name}
           desc={drink.instructions}
-          alcohol={"40"}
           ingredients={drink.ingredients}
         />
       );

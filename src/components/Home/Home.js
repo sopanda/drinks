@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import Drinks from "../Drinks/Drinks";
 import classes from "./Home.module.css";
-import axios from "axios";
+import axios from "../../axios-url";
 
 class Home extends Component {
   constructor(props) {
@@ -45,31 +45,23 @@ class Home extends Component {
     e.preventDefault();
     const { search, dropdownValue } = this.state;
     if (dropdownValue === "Drink") {
-      axios
-        .get(`https://9155b4f4.ngrok.io/api/drink/?name_query=${search}`)
-        .then(res => {
-          let data = res.data.data;
-          console.log(data);
-          this.setState({ data });
-        });
+      axios.get(`/api/drink/?name_query=${search}`).then(res => {
+        let data = res.data.data;
+        console.log(data);
+        this.setState({ data });
+      });
     }
     if (dropdownValue === "Ingredient") {
-      axios
-        .get(
-          `https://9155b4f4.ngrok.io/api/drink/?ingredient_name_query=${search}`
-        )
-        .then(res => {
-          const data = res.data.data;
-          this.setState({ data });
-        });
+      axios.get(`/api/drink/?ingredient_name_query=${search}`).then(res => {
+        const data = res.data.data;
+        this.setState({ data });
+      });
     }
     if (dropdownValue === "Alcohol") {
-      axios
-        .get(`https://9155b4f4.ngrok.io/api/drink/?name_query=${search}`)
-        .then(res => {
-          const data = res.data.data;
-          this.setState({ data });
-        });
+      axios.get(`/api/drink/?name_query=${search}`).then(res => {
+        const data = res.data.data;
+        this.setState({ data });
+      });
     }
   };
 

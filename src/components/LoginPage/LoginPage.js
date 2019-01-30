@@ -9,7 +9,7 @@ import {
   Col
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axios-url";
 import classes from "./LoginPage.module.css";
 import { withRouter } from "react-router-dom";
 
@@ -37,15 +37,13 @@ class LoginPage extends Component {
       password: password
     };
     if (username && password) {
-      axios
-        .post(`https://9155b4f4.ngrok.io/api/jwt/access_token/`, user)
-        .then(res => {
-          let { access_token } = res.data;
-          if (access_token === undefined) {
-            localStorage.setItem("user", access_token);
-            this.props.history.push("/");
-          }
-        });
+      axios.post(`/api/jwt/access_token/`, user).then(res => {
+        let { access_token } = res.data;
+        if (access_token !== undefined) {
+          localStorage.setItem("user", access_token);
+          this.props.history.push("/");
+        }
+      });
     }
   };
 
