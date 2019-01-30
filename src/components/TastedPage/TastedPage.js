@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Drinks from "../Drinks/Drinks";
-import { Container, Row, Col } from "reactstrap";
+import { Container } from "reactstrap";
 import classes from "./TastedPage.module.css";
 import axios from "../../axios-url";
 
@@ -23,18 +23,12 @@ class TastedPage extends Component {
     const { data } = this.state;
     return (
       <Container>
-        <Row>
-          <Col>
-            <h3 className={classes.Title}>Tasted drinks:</h3>
-            {data !== null && data.length !== 0 ? (
-              <Row>
-                <Drinks data={data} />
-              </Row>
-            ) : (
-              <p>You don't taste anything yet</p>
-            )}
-          </Col>
-        </Row>
+        <h3 className={classes.Title}>Tasted drinks:</h3>
+        {data !== null && data.length !== 0 ? (
+          <Drinks data={data} />
+        ) : (
+          <p>You don't taste anything yet</p>
+        )}
       </Container>
     );
   }

@@ -12,9 +12,9 @@ class Drinks extends Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.data !== this.state.drinks;
   }
+
   render() {
     let drinks = this.props.data.map(drink => {
-      console.log(drink);
       return (
         <Drink
           key={drink.id}
@@ -23,6 +23,8 @@ class Drinks extends Component {
           category={drink.category.name}
           desc={drink.instructions}
           ingredients={drink.ingredients}
+          id={drink.id}
+          wishUpdate={this.props.parentUpdate}
         />
       );
     });
